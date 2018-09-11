@@ -34,10 +34,16 @@
     private void ResetCache(LocationsDictionary dictionary)
     {
       PropertyInfo cacheProperty = dictionary.GetType().BaseType.GetProperty("Cache", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-      int maxCache = Settings.GetIntSetting("LocationsDictionaryCacheSize",100000000);
-      Sitecore.Caching.Cache para = new Caching.Cache("LocationsDictionaryCache", (long)maxCache);
-      cacheProperty.SetValue(dictionary, para);
-      Log.Info("Invoke finished! New cache size is:"+maxCache, this);
+      Caching.Cache origin = (Caching.Cache)cacheProperty.GetValue(dictionary);
+      if (origin.MaxSize < 100000000)
+      {
+        int maxCache = Settings.GetIntSetting("LocationsDictionaryCacheSize", 100000000);
+        //Sitecore.Caching.Cache para = new Caching.Cache("LocationsDictionaryCache", (long)maxCache);
+        // cacheProperty.SetValue(dictionary, para);
+        origin.MaxSize = maxCache;
+        Log.Info("Invoke finished! New cache size is:" + maxCache, this);
+      }
+      
     }
   }
 }
