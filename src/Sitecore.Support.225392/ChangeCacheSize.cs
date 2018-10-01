@@ -50,7 +50,7 @@
       if(locCache.MaxSize<=10000000)
          locCache.MaxSize = Settings.GetIntSetting("LocationsDictionaryCacheSize", 10000000);
       if (geoCache.MaxSize <= 10000000)
-        geoCache.MaxSize = Settings.GetIntSetting("GeoIpDictionaryCacheSize", 10000000);
+        geoCache.MaxSize = Settings.GetIntSetting("GeoIpDataDictionaryCacheSize", 10000000);
       if (devCache.MaxSize <= 10000000)
         devCache.MaxSize = Settings.GetIntSetting("DeviceDictionaryCacheSize", 10000000);
         //Sitecore.Caching.Cache para = new Caching.Cache("LocationsDictionaryCache", (long)maxCache);
