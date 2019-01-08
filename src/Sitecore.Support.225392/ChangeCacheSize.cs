@@ -51,10 +51,10 @@
 
       userAgCache.MaxSize = Settings.GetIntSetting("UserAgentDictionaryCacheSize", 0xf4240);
       devCache.MaxSize = Settings.GetIntSetting("DeviceDictionaryCacheSize", 0xf4240);
-
-      Log.Info($"Size of UserAgentDictionaryCache was changed. UserAgentDictionary.Cache.MaxSize={userAgCache.MaxSize}", this);
-      Log.Info($"Size of DeviceDictionaryCache was changed.  DeviceDictionary.Cache.MaxSize = {devCache.MaxSize} ", this);
-      Log.Info("Invoke finished! ", this);
+      // Sitecore.Support.22395 8.2.7.1
+      Log.Debug($"Size of UserAgentDictionaryCache was changed. UserAgentDictionary.Cache.MaxSize={userAgCache.MaxSize}", this);
+      Log.Debug($"Size of DeviceDictionaryCache was changed.  DeviceDictionary.Cache.MaxSize = {devCache.MaxSize} ", this);
+      Log.Debug("Invoke finished! ", this);
     }
   }
 }
