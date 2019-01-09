@@ -13,12 +13,9 @@
 
   public class ChangeCacheSize
   {
-    public static DictionaryBase GetDictionaryData()
-    {
-      GetDictionaryDataPipelineArgs getDictionaryDataPipelineArgs = new GetDictionaryDataPipelineArgs();
-      GetDictionaryDataPipeline.Run(getDictionaryDataPipelineArgs);
-      return Assert.ResultNotNull<DictionaryBase>(getDictionaryDataPipelineArgs.Result, "Check configuration, 'getDictionaryDataStorage' pipeline  must set args.Result property with instance of DictionaryBase type.");
-    }
+
+    private static PropertyInfo UserAgentCacheProperty;
+    private static PropertyInfo DeviceCacheProperty;
 
     public virtual void Process(PipelineArgs args)
     {
@@ -43,18 +40,22 @@
 
     private void ResetCache(UserAgentsDictionary userAgDic, DeviceDictionary devDic)
     {
-      PropertyInfo userAgCacheProperty = userAgDic.GetType().BaseType.GetProperty("Cache", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-      PropertyInfo devCacheProperty = devDic.GetType().BaseType.GetProperty("Cache", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+      if (((UserAgentCacheProperty == null) || (DeviceCacheProperty == null)))
+      {
+        UserAgentCacheProperty = userAgDic.GetType().BaseType.GetProperty("Cache", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        DeviceCacheProperty = devDic.GetType().BaseType.GetProperty("Cache", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
-      Cache<Guid> userAgCache = (Cache<Guid>)userAgCacheProperty.GetValue(userAgDic);
-      Cache<Guid> devCache = (Cache<Guid>)devCacheProperty.GetValue(devDic);
+        Cache<Guid> UserAgentCache = (Cache<Guid>)UserAgentCacheProperty.GetValue(userAgDic);
+        Cache<Guid> DeviceCache = (Cache<Guid>)DeviceCacheProperty.GetValue(devDic);
 
-      userAgCache.MaxSize = Settings.GetIntSetting("UserAgentDictionaryCacheSize", 0xf4240);
-      devCache.MaxSize = Settings.GetIntSetting("DeviceDictionaryCacheSize", 0xf4240);
-      // Sitecore.Support.22395 8.2.7.1
-      Log.Debug($"Size of UserAgentDictionaryCache was changed. UserAgentDictionary.Cache.MaxSize={userAgCache.MaxSize}", this);
-      Log.Debug($"Size of DeviceDictionaryCache was changed.  DeviceDictionary.Cache.MaxSize = {devCache.MaxSize} ", this);
-      Log.Debug("Invoke finished! ", this);
+        UserAgentCache.MaxSize = Settings.GetIntSetting("UserAgentDictionaryCacheSize", 0xf4240);
+        DeviceCache.MaxSize = Settings.GetIntSetting("DeviceDictionaryCacheSize", 0xf4240);
+
+        Log.Info($"Size of UserAgentDictionaryCache was changed. UserAgentDictionary.Cache.MaxSize={UserAgentCache.MaxSize}", this);
+        Log.Info($"Size of DeviceDictionaryCache was changed.  DeviceDictionary.Cache.MaxSize = {DeviceCache.MaxSize} ", this);
+        Log.Info("Invoke finished! ", this);
+
+      }
     }
   }
 }
