@@ -14,6 +14,7 @@ namespace Sitecore.Support.Analytics.DataAccess.Pipelines.InitializeKnownDataDic
       Condition.Ensures(dictionaryDataArgs.Result).IsNotNull("Check configuration, 'getDictionaryDataStorage' pipeline  must set args.Result property with instance of DictionaryBase type.");
       args.UserAgentsDictionary = new Sitecore.Support.Analytics.DataAccess.Dictionaries.UserAgentsDictionary(dictionaryDataArgs.Result);
       args.ReferringSitesDictionary = new Sitecore.Support.Analytics.DataAccess.Dictionaries.ReferringSitesDictionary(dictionaryDataArgs.Result);
+      args.GeoIpDataDictionary = new Sitecore.Support.Analytics.DataAccess.Dictionaries.GeoIpDataDictionary(dictionaryDataArgs.Result);
     }
   }
 }
