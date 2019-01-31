@@ -1,5 +1,5 @@
 # Sitecore.Support.225392
-UserAgentDictionaryCache size and expiration time cannot be configured
+Add ability to configure size and expiration time for ReferenceDataDictionaries like UserAgentDictionaryCache, ReferringSitesDictionary and GeoIpDataDictionary.
 
 ## License  
 This patch is licensed under the [Sitecore Corporation A/S License for GitHub](https://github.com/sitecoresupport/Sitecore.Support.225392/blob/master/LICENSE).  
