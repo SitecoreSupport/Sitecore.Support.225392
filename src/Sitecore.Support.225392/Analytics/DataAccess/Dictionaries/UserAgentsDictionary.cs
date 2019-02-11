@@ -1,12 +1,5 @@
 ﻿using System;
-using Sitecore.Analytics.DataAccess.Diagnostics.PerformanceCounters;
-using Sitecore.Analytics.Model;
-using Sitecore.Framework.Conditions;
-using Sitecore.StringExtensions;
 using Sitecore.Analytics.DataAccess;
-using Sitecore.Analytics;
-using Sitecore.Analytics.DataAccess.Dictionaries;
-using Sitecore.Caching.Generics;
 
 namespace Sitecore.Support.Analytics.DataAccess.Dictionaries
 {
